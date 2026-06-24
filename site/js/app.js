@@ -396,7 +396,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
       renderBuildingPage(building, suites, contacts);
-      const buildingContacts = contacts.filter((c) => !c.building_id || c.building_id === buildingId);
+      let buildingContacts = contacts;
+      if (building.broker) {
+        const names = building.broker.split(",").map((n) => n.trim().toLowerCase());
+        const matched = contacts.filter((c) => names.some((n) => c.name.toLowerCase().includes(n)));
+        if (matched.length > 0) buildingContacts = matched;
+      }
       renderBuildingCTA(buildingContacts, "building-cta");
     }
   } catch (err) {
