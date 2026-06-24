@@ -10,7 +10,7 @@ const CONFIG = {
   // Example ID:  1aBcDeFgHiJkLmNoPqRsTuVwXyZ
   // DO NOT use the "Publish to web" link (the one with /e/2PACX-...) — use the
   // normal URL from your browser bar when you have the sheet open.
-  GOOGLE_SHEET_ID: "",
+  GOOGLE_SHEET_ID: "1pnKTusIbZuhHyzjUn5lHtUoLHR6kNnybQPc-RrqPqBU",
 };
 
 /* ── Data loading ── */
