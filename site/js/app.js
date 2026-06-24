@@ -7,7 +7,7 @@ const CONFIG = {
   // ── Google Sheets live data ──
   // Paste your Google Sheet ID here. Leave blank to use local JSON files instead.
   // Find the ID in your sheet URL: https://docs.google.com/spreadsheets/d/SHEET_ID_HERE/edit
-  GOOGLE_SHEET_ID: "",
+  GOOGLE_SHEET_ID: "https://docs.google.com/spreadsheets/d/e/2PACX-1vToPKhxUttexl345aFBR_QE8BTGZ1CU4OI4lqmgVgVjV-qggY8JvF3hSTB1X7omR5Q3o7l51ezd70nQ/pubhtml",
 };
 
 /* ── Data loading ── */
