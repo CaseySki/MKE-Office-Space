@@ -328,7 +328,7 @@ function renderBuildingPage(building, suites, contacts) {
             ${s.available_date && s.status === "Available" ? `<span>Available ${escapeHtml(s.available_date)}</span>` : ""}
           </div>
           ${s.notes ? `<div class="suite-notes">${escapeHtml(s.notes)}</div>` : ""}
-          ${s.floor_plan_filename ? `<div class="suite-floor-plan"><a href="${imgSrc(s.floor_plan_filename)}" target="_blank">View Floor Plan</a></div>` : ""}
+          ${s.floor_plan_filename ? `<div class="suite-floor-plan"><a href="${fileSrc(s.floor_plan_filename)}" target="_blank">View Floor Plan</a></div>` : ""}
         </div>
         <span class="suite-badge ${badgeClass}">${escapeHtml(s.status)}</span>
       </div>
@@ -338,6 +338,18 @@ function renderBuildingPage(building, suites, contacts) {
 }
 
 /* ── Utilities ── */
+function fileSrc(filename) {
+  if (!filename) return "";
+  if (filename.startsWith("http://") || filename.startsWith("https://")) {
+    const driveMatch = filename.match(/(?:\/d\/|[?&]id=)([a-zA-Z0-9_-]+)/);
+    if (driveMatch) {
+      return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+    }
+    return filename;
+  }
+  return `images/${filename}`;
+}
+
 function imgSrc(filename) {
   if (!filename) return "";
   if (filename.startsWith("http://") || filename.startsWith("https://")) {
