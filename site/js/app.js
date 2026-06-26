@@ -413,7 +413,10 @@ function renderBuildingPage(building, suites, contacts) {
       return `
       <div class="suite-card ${statusClass}">
         <div>
-          <div class="suite-name">${escapeHtml(s.suite_number)}</div>
+          <div class="suite-card-header">
+            <div class="suite-name">${escapeHtml(s.suite_number)}</div>
+            ${favBtnHtml(s.suite_id)}
+          </div>
           <div class="suite-meta">
             ${s.floor ? `<span>Floor ${escapeHtml(s.floor)}</span>` : ""}
             ${s.square_feet ? `<span>${Number(s.square_feet).toLocaleString()} SF</span>` : ""}
@@ -427,6 +430,7 @@ function renderBuildingPage(building, suites, contacts) {
             ${s.brochure_filename ? `<a href="#" data-doc-src="${fileSrc(s.brochure_filename)}" onclick="openDocModal(this.dataset.docSrc);return false;">View Brochure</a>` : ""}
             ${s.photos ? `<a href="#" data-doc-src="${fileSrc(s.photos)}" onclick="openDocModal(this.dataset.docSrc);return false;">View Photos</a>` : ""}
             <a href="#" class="suite-share-link" onclick="shareSuite('${escapeHtml(building.building_name)}','${escapeHtml(s.suite_number)}',this);return false;">Share</a>
+            <label class="compare-label-btn"><input type="checkbox" class="compare-cb" data-suite="${s.suite_id}"> Compare</label>
           </div>
         </div>
         <span class="suite-badge ${badgeClass}">${escapeHtml(s.status)}</span>
@@ -622,6 +626,252 @@ function shareSuite(buildingName, suiteNumber, el) {
   }
 }
 
+/* ── Favorites ── */
+function getFavorites() {
+  try { return JSON.parse(localStorage.getItem("ogden_favorites") || "[]"); }
+  catch { return []; }
+}
+
+function saveFavorites(favs) {
+  localStorage.setItem("ogden_favorites", JSON.stringify(favs));
+}
+
+function isFavorite(suiteId) {
+  return getFavorites().some((f) => f.suite_id === suiteId);
+}
+
+function toggleFavorite(suite, building) {
+  let favs = getFavorites();
+  const idx = favs.findIndex((f) => f.suite_id === suite.suite_id);
+  if (idx >= 0) {
+    favs.splice(idx, 1);
+  } else {
+    favs.push({
+      suite_id: suite.suite_id,
+      suite_number: suite.suite_number,
+      building_id: suite.building_id,
+      building_name: building.building_name,
+      square_feet: suite.square_feet,
+      lease_rate: suite.lease_rate,
+      rate_unit: suite.rate_unit,
+      status: suite.status,
+    });
+    if (typeof gtag === "function") gtag("event", "save_favorite", { suite_id: suite.suite_id, building: building.building_name });
+  }
+  saveFavorites(favs);
+  document.querySelectorAll(`.fav-btn[data-suite="${suite.suite_id}"]`).forEach((btn) => {
+    btn.classList.toggle("active", isFavorite(suite.suite_id));
+    btn.querySelector("svg").setAttribute("fill", isFavorite(suite.suite_id) ? "currentColor" : "none");
+  });
+  renderFavorites();
+}
+
+function favBtnHtml(suiteId) {
+  const active = isFavorite(suiteId);
+  return `<button class="fav-btn${active ? " active" : ""}" data-suite="${suiteId}" aria-label="Save suite"><svg viewBox="0 0 24 24" fill="${active ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>`;
+}
+
+function renderFavorites() {
+  const section = document.getElementById("favorites-section");
+  const grid = document.getElementById("favorites-grid");
+  if (!section || !grid) return;
+
+  const favs = getFavorites();
+  if (favs.length === 0) {
+    section.style.display = "none";
+    return;
+  }
+
+  section.style.display = "";
+  grid.innerHTML = favs.map((f) => `
+    <div class="fav-card">
+      <div>
+        <div class="fav-card-building"><a href="building.html?id=${f.building_id}">${escapeHtml(f.building_name)}</a></div>
+        <div class="fav-card-name">${escapeHtml(f.suite_number)}</div>
+        <div class="fav-card-meta">
+          ${f.square_feet ? `<span>${Number(f.square_feet).toLocaleString()} SF</span>` : ""}
+          ${f.lease_rate ? `<span>$${escapeHtml(f.lease_rate)}${escapeHtml(f.rate_unit || "")}</span>` : ""}
+        </div>
+      </div>
+      <span class="suite-badge ${f.status === "Available" ? "badge-available" : f.status === "Leased" ? "badge-leased" : "badge-pending"}">${escapeHtml(f.status)}</span>
+      <button class="fav-remove" onclick="removeFavorite('${f.suite_id}')" aria-label="Remove">&times;</button>
+    </div>
+  `).join("");
+}
+
+function removeFavorite(suiteId) {
+  let favs = getFavorites();
+  favs = favs.filter((f) => f.suite_id !== suiteId);
+  saveFavorites(favs);
+  renderFavorites();
+  document.querySelectorAll(`.fav-btn[data-suite="${suiteId}"]`).forEach((btn) => {
+    btn.classList.remove("active");
+    btn.querySelector("svg").setAttribute("fill", "none");
+  });
+}
+
+/* ── Inquiry form ── */
+function initInquiryForm(buildingName) {
+  const form = document.getElementById("inquiry-form");
+  const buildingInput = document.getElementById("inquiry-building");
+  const successEl = document.getElementById("inquiry-success");
+  if (!form) return;
+
+  if (buildingInput && buildingName) buildingInput.value = buildingName;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form));
+
+    if (typeof gtag === "function") {
+      gtag("event", "inquiry_submit", {
+        building: data.building,
+        name: data.name,
+        company: data.company,
+      });
+    }
+
+    const subject = encodeURIComponent(`Space Inquiry — ${data.building || "Ogden Office Space"}`);
+    const body = encodeURIComponent(
+      `Name: ${data.name}\nCompany: ${data.company}\nEmail: ${data.email}\nPhone: ${data.phone || "N/A"}\n\nBuilding: ${data.building || "N/A"}\n\nMessage:\n${data.message || "N/A"}`
+    );
+    window.location.href = `mailto:caseysodolski@gmail.com?subject=${subject}&body=${body}`;
+
+    form.style.display = "none";
+    successEl.style.display = "flex";
+  });
+}
+
+/* ── GA event helpers ── */
+function trackBuildingView(buildingName) {
+  if (typeof gtag === "function") gtag("event", "view_building", { building: buildingName });
+}
+
+function trackSuiteClick(suiteId, buildingName) {
+  if (typeof gtag === "function") gtag("event", "view_suite", { suite_id: suiteId, building: buildingName });
+}
+
+/* ── Compare suites ── */
+let compareList = [];
+
+function initCompare(building, suites) {
+  const buildingSuites = suites.filter((s) => s.building_id === building.building_id);
+
+  document.querySelectorAll(".compare-cb").forEach((cb) => {
+    cb.addEventListener("change", () => {
+      const sid = cb.dataset.suite;
+      const s = buildingSuites.find((x) => x.suite_id === sid);
+      if (!s) return;
+      if (cb.checked) {
+        if (compareList.length >= 3) {
+          cb.checked = false;
+          return;
+        }
+        compareList.push({ ...s, building_name: building.building_name });
+      } else {
+        compareList = compareList.filter((c) => c.suite_id !== sid);
+      }
+      updateCompareBar();
+    });
+  });
+}
+
+function updateCompareBar() {
+  let bar = document.getElementById("compare-bar");
+  if (!bar) {
+    bar = document.createElement("div");
+    bar.id = "compare-bar";
+    bar.className = "compare-bar";
+    document.body.appendChild(bar);
+  }
+
+  if (compareList.length === 0) {
+    bar.classList.remove("visible");
+    return;
+  }
+
+  bar.classList.add("visible");
+  bar.innerHTML = `
+    <div class="compare-bar-inner">
+      <div class="compare-bar-items">
+        ${compareList.map((s) => `
+          <span class="compare-bar-chip">
+            ${escapeHtml(s.suite_number)}
+            <button onclick="removeCompare('${s.suite_id}')" class="compare-chip-x">&times;</button>
+          </span>
+        `).join("")}
+        ${compareList.length < 3 ? `<span class="compare-bar-hint">${3 - compareList.length} more</span>` : ""}
+      </div>
+      <button class="compare-bar-btn" onclick="showCompareModal()" ${compareList.length < 2 ? "disabled" : ""}>Compare ${compareList.length} Suite${compareList.length !== 1 ? "s" : ""}</button>
+    </div>
+  `;
+}
+
+function removeCompare(suiteId) {
+  compareList = compareList.filter((c) => c.suite_id !== suiteId);
+  const cb = document.querySelector(`.compare-cb[data-suite="${suiteId}"]`);
+  if (cb) cb.checked = false;
+  updateCompareBar();
+}
+
+function showCompareModal() {
+  if (compareList.length < 2) return;
+
+  const fields = [
+    { label: "Status", key: "status", format: (v) => v || "—" },
+    { label: "Floor", key: "floor", format: (v) => v ? `Floor ${v}` : "—" },
+    { label: "Size", key: "square_feet", format: (v) => v ? `${Number(v).toLocaleString()} SF` : "—" },
+    { label: "Rate", key: "lease_rate", format: (v, s) => v ? `$${v}${s.rate_unit || ""}` : "—" },
+    { label: "Lease Type", key: "lease_type", format: (v) => v || "—" },
+    { label: "Available", key: "available_date", format: (v) => v || "—" },
+    { label: "Notes", key: "notes", format: (v) => v || "—" },
+  ];
+
+  let overlay = document.getElementById("compare-modal-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "compare-modal-overlay";
+    overlay.className = "compare-modal-overlay";
+    document.body.appendChild(overlay);
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) closeCompareModal();
+    });
+  }
+
+  overlay.innerHTML = `
+    <div class="compare-modal">
+      <button class="doc-modal-close" onclick="closeCompareModal()">&times;</button>
+      <h3 class="compare-modal-title">Suite Comparison</h3>
+      <div class="compare-table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th></th>
+              ${compareList.map((s) => `<th>${escapeHtml(s.suite_number)}</th>`).join("")}
+            </tr>
+          </thead>
+          <tbody>
+            ${fields.map((f) => `
+              <tr>
+                <td class="compare-label">${f.label}</td>
+                ${compareList.map((s) => `<td>${escapeHtml(f.format(s[f.key], s))}</td>`).join("")}
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  overlay.classList.add("open");
+
+  if (typeof gtag === "function") gtag("event", "compare_suites", { count: compareList.length });
+}
+
+function closeCompareModal() {
+  const overlay = document.getElementById("compare-modal-overlay");
+  if (overlay) overlay.classList.remove("open");
+}
+
 /* ── Back to top ── */
 function initBackToTop() {
   const btn = document.getElementById("back-to-top");
@@ -669,7 +919,7 @@ function closeDocModal() {
     if (e.target === overlay) closeDocModal();
   });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") closeDocModal();
+    if (e.key === "Escape") { closeDocModal(); closeCompareModal(); }
   });
 })();
 
@@ -688,6 +938,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (page === "home") {
       initMap(buildings, suites);
+      renderFavorites();
       initSuiteSearch(buildings, suites);
       renderContacts(contacts, "contacts-grid");
     } else if (page === "building") {
@@ -698,7 +949,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
       renderBuildingPage(building, suites, contacts);
+      trackBuildingView(building.building_name);
       addShareButton();
+      initInquiryForm(building.building_name);
+
+      initCompare(building, suites);
+
+      const buildingSuites = suites.filter((s) => s.building_id === building.building_id);
+      document.querySelectorAll(".fav-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const sid = btn.dataset.suite;
+          const s = buildingSuites.find((x) => x.suite_id === sid);
+          if (s) toggleFavorite(s, building);
+        });
+      });
+
       let buildingContacts = contacts;
       if (building.broker) {
         const names = building.broker.split(",").map((n) => n.trim().toLowerCase());
