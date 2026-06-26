@@ -957,6 +957,10 @@ img {
   flex-shrink: 0;
 }
 
+.map-legend-num.sale {
+  background: #1e40af;
+}
+
 .map-legend-text {
   display: flex;
   flex-direction: column;
