@@ -224,6 +224,16 @@ function initMap(buildings, suites) {
         ${buildings.map((b) => `<a class="popup-link" style="margin:4px 4px 0 0;" href="building.html?id=${b.building_id}">${escapeHtml(b.building_name)}</a>`).join("")}
       `);
     }
+    marker.on("click", () => {
+      const legendItem = document.getElementById("legend-" + first.building_id);
+      if (legendItem) {
+        setTimeout(() => {
+          legendItem.scrollIntoView({ behavior: "smooth", block: "center" });
+          legendItem.classList.add("highlight");
+          setTimeout(() => legendItem.classList.remove("highlight"), 1500);
+        }, 300);
+      }
+    });
     markers.push(marker);
   });
 
@@ -249,7 +259,7 @@ function initMap(buildings, suites) {
       const thumb = b.photo_filename
         ? `<img class="map-legend-thumb" src="${imgSrc(b.photo_filename)}" alt="" onerror="this.outerHTML='<div class=\\'map-legend-thumb-placeholder\\'>&#128247;</div>'">`
         : `<div class="map-legend-thumb-placeholder">&#128247;</div>`;
-      return `<a class="map-legend-item" href="building.html?id=${b.building_id}"><span class="map-legend-num" ${showNum ? "" : 'style="visibility:hidden"'}>${num}</span>${thumb}<div class="map-legend-text"><span class="map-legend-name">${escapeHtml(b.building_name)}</span><span class="map-legend-address">${escapeHtml(b.address)}, ${escapeHtml(b.city)}</span>${availText ? `<span class="map-legend-avail${isSale ? " for-sale" : ""}">${availText}</span>` : ""}</div></a>`;
+      return `<a class="map-legend-item" id="legend-${b.building_id}" href="building.html?id=${b.building_id}"><span class="map-legend-num" ${showNum ? "" : 'style="visibility:hidden"'}>${num}</span>${thumb}<div class="map-legend-text"><span class="map-legend-name">${escapeHtml(b.building_name)}</span><span class="map-legend-address">${escapeHtml(b.address)}, ${escapeHtml(b.city)}</span>${availText ? `<span class="map-legend-avail${isSale ? " for-sale" : ""}">${availText}</span>` : ""}</div></a>`;
     }
 
     Object.values(groups).forEach((buildings) => {
@@ -416,6 +426,7 @@ function renderBuildingPage(building, suites, contacts) {
             ${s.floor_plan_filename ? `<a href="#" data-doc-src="${fileSrc(s.floor_plan_filename)}" onclick="openDocModal(this.dataset.docSrc);return false;">View Floor Plan</a>` : ""}
             ${s.brochure_filename ? `<a href="#" data-doc-src="${fileSrc(s.brochure_filename)}" onclick="openDocModal(this.dataset.docSrc);return false;">View Brochure</a>` : ""}
             ${s.photos ? `<a href="#" data-doc-src="${fileSrc(s.photos)}" onclick="openDocModal(this.dataset.docSrc);return false;">View Photos</a>` : ""}
+            <a href="#" class="suite-share-link" onclick="shareSuite('${escapeHtml(building.building_name)}','${escapeHtml(s.suite_number)}',this);return false;">Share</a>
           </div>
         </div>
         <span class="suite-badge ${badgeClass}">${escapeHtml(s.status)}</span>
@@ -459,6 +470,123 @@ function escapeHtml(str) {
 
 function getQueryParam(key) {
   return new URLSearchParams(window.location.search).get(key);
+}
+
+/* ── Suite search/filter (home page) ── */
+function initSuiteSearch(buildings, suites) {
+  const resultsEl = document.getElementById("suite-search-results");
+  const searchInput = document.getElementById("filter-search");
+  const statusSelect = document.getElementById("filter-status");
+  const sizeSelect = document.getElementById("filter-size");
+  if (!resultsEl || !searchInput) return;
+
+  const buildingMap = {};
+  buildings.forEach((b) => { buildingMap[b.building_id] = b; });
+
+  function render() {
+    const query = searchInput.value.toLowerCase();
+    const status = statusSelect.value;
+    const sizeRange = sizeSelect.value;
+
+    let filtered = suites.filter((s) => {
+      const b = buildingMap[s.building_id];
+      if (!b) return false;
+      if (status && s.status !== status) return false;
+      if (query) {
+        const hay = `${b.building_name} ${s.suite_number} ${b.address}`.toLowerCase();
+        if (!hay.includes(query)) return false;
+      }
+      if (sizeRange) {
+        const sf = parseInt(s.square_feet) || 0;
+        if (sizeRange === "0-1000" && sf >= 1000) return false;
+        if (sizeRange === "1000-3000" && (sf < 1000 || sf >= 3000)) return false;
+        if (sizeRange === "3000-5000" && (sf < 3000 || sf >= 5000)) return false;
+        if (sizeRange === "5000+" && sf < 5000) return false;
+      }
+      return true;
+    });
+
+    if (filtered.length === 0) {
+      resultsEl.innerHTML = '<div class="suite-search-empty">No suites match your filters.</div>';
+      return;
+    }
+
+    resultsEl.innerHTML = filtered.map((s) => {
+      const b = buildingMap[s.building_id];
+      const statusClass = (s.status || "Available").toLowerCase();
+      const badgeClass = statusClass === "available" ? "badge-available" : statusClass === "leased" ? "badge-leased" : "badge-pending";
+      return `<div class="search-suite-card">
+        <div>
+          <div class="search-suite-building"><a href="building.html?id=${b.building_id}">${escapeHtml(b.building_name)}</a></div>
+          <div class="search-suite-name">${escapeHtml(s.suite_number)}</div>
+          <div class="search-suite-meta">
+            ${s.square_feet ? `<span>${Number(s.square_feet).toLocaleString()} SF</span>` : ""}
+            ${s.lease_rate ? `<span>$${escapeHtml(s.lease_rate)}${escapeHtml(s.rate_unit || "")}</span>` : ""}
+            ${s.lease_type ? `<span>${escapeHtml(s.lease_type)}</span>` : ""}
+          </div>
+        </div>
+        <span class="suite-badge ${badgeClass}">${escapeHtml(s.status)}</span>
+      </div>`;
+    }).join("");
+  }
+
+  searchInput.addEventListener("input", render);
+  statusSelect.addEventListener("change", render);
+  sizeSelect.addEventListener("change", render);
+  render();
+}
+
+/* ── Share button ── */
+function addShareButton() {
+  const details = document.querySelector(".building-details");
+  if (!details) return;
+  const btn = document.createElement("button");
+  btn.className = "share-btn";
+  btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> Share';
+  btn.addEventListener("click", async () => {
+    const url = window.location.href;
+    const title = document.title;
+    if (navigator.share) {
+      try { await navigator.share({ title, url }); } catch (e) {}
+    } else {
+      await navigator.clipboard.writeText(url);
+      btn.classList.add("copied");
+      btn.innerHTML = "Link copied!";
+      setTimeout(() => {
+        btn.classList.remove("copied");
+        btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> Share';
+      }, 2000);
+    }
+  });
+  details.appendChild(btn);
+}
+
+/* ── Suite share ── */
+function shareSuite(buildingName, suiteNumber, el) {
+  const url = window.location.href;
+  const text = `${suiteNumber} at ${buildingName} — Ogden & Company`;
+  if (navigator.share) {
+    navigator.share({ title: text, text: text, url: url }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(`${text}\n${url}`).then(() => {
+      if (el) {
+        el.textContent = "Copied!";
+        setTimeout(() => { el.textContent = "Share"; }, 2000);
+      }
+    });
+  }
+}
+
+/* ── Back to top ── */
+function initBackToTop() {
+  const btn = document.getElementById("back-to-top");
+  if (!btn) return;
+  window.addEventListener("scroll", () => {
+    btn.classList.toggle("visible", window.scrollY > 400);
+  });
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 }
 
 /* ── Document modal ── */
@@ -511,8 +639,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     buildSidebar(buildings, buildingId);
 
+    initBackToTop();
+
     if (page === "home") {
       initMap(buildings, suites);
+      initSuiteSearch(buildings, suites);
       renderContacts(contacts, "contacts-grid");
     } else if (page === "building") {
       const building = buildings.find((b) => b.building_id === buildingId);
@@ -522,6 +653,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
       renderBuildingPage(building, suites, contacts);
+      addShareButton();
       let buildingContacts = contacts;
       if (building.broker) {
         const names = building.broker.split(",").map((n) => n.trim().toLowerCase());
