@@ -49,6 +49,29 @@
       </div>
     </section>
 
+    <section class="suite-search-section" id="suite-search-section">
+      <h2>Browse All Suites</h2>
+      <div class="suite-search-filters" id="suite-search-filters">
+        <input type="text" class="filter-input" id="filter-search" placeholder="Search by building or suite...">
+        <select class="filter-select" id="filter-status">
+          <option value="">All Statuses</option>
+          <option value="Available" selected>Available</option>
+          <option value="Pending">Pending</option>
+          <option value="Leased">Leased</option>
+        </select>
+        <select class="filter-select" id="filter-size">
+          <option value="">Any Size</option>
+          <option value="0-1000">Under 1,000 SF</option>
+          <option value="1000-3000">1,000 – 3,000 SF</option>
+          <option value="3000-5000">3,000 – 5,000 SF</option>
+          <option value="5000+">5,000+ SF</option>
+        </select>
+      </div>
+      <div class="suite-search-results" id="suite-search-results">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
     <section class="contacts-section">
       <h2>Contact Our Brokers</h2>
       <div class="contacts-grid" id="contacts-grid">
@@ -60,6 +83,9 @@
       &copy; Ogden &amp; Company, Inc. &middot; Real Estate without Boundary&reg;
     </footer>
   </main>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">&uarr;</button>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="js/app.js"></script>
