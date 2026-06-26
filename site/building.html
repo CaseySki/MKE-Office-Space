@@ -47,6 +47,24 @@
       <!-- Populated by JS -->
     </div>
 
+    <section class="inquiry-section" id="inquiry-section">
+      <h2>Interested in This Space?</h2>
+      <p class="inquiry-subtitle">Fill out the form below and a broker will be in touch.</p>
+      <form class="inquiry-form" id="inquiry-form">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="text" name="company" placeholder="Company Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="tel" name="phone" placeholder="Phone Number">
+        <textarea name="message" rows="3" placeholder="Tell us about your space needs (size, timeline, etc.)"></textarea>
+        <input type="hidden" name="building" id="inquiry-building" value="">
+        <button type="submit" class="inquiry-submit">Submit Inquiry</button>
+      </form>
+      <div class="inquiry-success" id="inquiry-success" style="display:none">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <p>Thank you! A broker will contact you shortly.</p>
+      </div>
+    </section>
+
     <footer class="site-footer">
       &copy; Ogden &amp; Company, Inc. &middot; Real Estate without Boundary&reg;
     </footer>
@@ -63,6 +81,15 @@
       <a class="doc-modal-fallback" id="doc-modal-fallback" href="#" target="_blank" style="display:none">Having trouble? Open in new tab &rarr;</a>
     </div>
   </div>
+
+  <!-- Google Analytics — replace G-XXXXXXXXXX with your Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 
   <script src="js/app.js"></script>
 </body>

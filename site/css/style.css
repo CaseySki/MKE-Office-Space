@@ -1246,6 +1246,257 @@ img {
   background: var(--red);
 }
 
+/* ── Inquiry form ── */
+.inquiry-section {
+  padding: 2rem 2.5rem 3rem;
+  max-width: 1100px;
+}
+
+.inquiry-section h2 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--near-black);
+  margin-bottom: 0.35rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.inquiry-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--red);
+}
+
+.inquiry-subtitle {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.88rem;
+  color: var(--gray-500);
+  margin-bottom: 1.25rem;
+}
+
+.inquiry-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  max-width: 600px;
+}
+
+.inquiry-form input,
+.inquiry-form textarea {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.88rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--near-black);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.inquiry-form input:focus,
+.inquiry-form textarea:focus {
+  border-color: var(--red);
+}
+
+.inquiry-form textarea {
+  grid-column: 1 / -1;
+  resize: vertical;
+  min-height: 70px;
+}
+
+.inquiry-form input[type="hidden"] {
+  display: none;
+}
+
+.inquiry-submit {
+  grid-column: 1 / -1;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.75rem 1.5rem;
+  background: var(--red);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.inquiry-submit:hover {
+  background: var(--red-dark);
+}
+
+.inquiry-success {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  max-width: 600px;
+}
+
+.inquiry-success p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.9rem;
+  color: #166534;
+  font-weight: 500;
+}
+
+/* ── Favorites ── */
+.fav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  color: var(--gray-300);
+  transition: color 0.15s, transform 0.15s;
+  flex-shrink: 0;
+}
+
+.fav-btn:hover {
+  color: var(--red);
+  transform: scale(1.15);
+}
+
+.fav-btn.active {
+  color: var(--red);
+}
+
+.fav-btn svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.suite-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.favorites-section {
+  padding: 2rem 2.5rem 1rem;
+  max-width: 1100px;
+}
+
+.favorites-section h2 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--near-black);
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.favorites-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--red);
+}
+
+.favorites-grid {
+  display: grid;
+  gap: 0;
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.favorites-empty {
+  padding: 1.25rem;
+  text-align: center;
+  color: var(--gray-400);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.88rem;
+}
+
+.fav-card {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--gray-200);
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.75rem;
+  align-items: center;
+  transition: background 0.15s;
+}
+
+.fav-card:last-child {
+  border-bottom: none;
+}
+
+.fav-card:hover {
+  background: var(--gray-50);
+}
+
+.fav-card-building {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--gray-400);
+}
+
+.fav-card-building a {
+  color: inherit;
+}
+
+.fav-card-building a:hover {
+  color: var(--red);
+}
+
+.fav-card-name {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--near-black);
+}
+
+.fav-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  margin-top: 0.15rem;
+}
+
+.fav-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  color: var(--gray-400);
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.fav-remove:hover {
+  color: var(--red);
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   :root {
@@ -1468,6 +1719,25 @@ img {
 
   .building-cta {
     padding-bottom: 2rem;
+  }
+
+  .inquiry-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .inquiry-form {
+    grid-template-columns: 1fr;
+  }
+
+  .favorites-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .fav-card {
+    grid-template-columns: 1fr auto;
+    padding: 0.85rem 1rem;
   }
 
   .suite-search-section {
