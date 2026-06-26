@@ -426,6 +426,7 @@ function renderBuildingPage(building, suites, contacts) {
             ${s.floor_plan_filename ? `<a href="#" data-doc-src="${fileSrc(s.floor_plan_filename)}" onclick="openDocModal(this.dataset.docSrc);return false;">View Floor Plan</a>` : ""}
             ${s.brochure_filename ? `<a href="#" data-doc-src="${fileSrc(s.brochure_filename)}" onclick="openDocModal(this.dataset.docSrc);return false;">View Brochure</a>` : ""}
             ${s.photos ? `<a href="#" data-doc-src="${fileSrc(s.photos)}" onclick="openDocModal(this.dataset.docSrc);return false;">View Photos</a>` : ""}
+            <a href="#" class="suite-share-link" onclick="shareSuite('${escapeHtml(building.building_name)}','${escapeHtml(s.suite_number)}',this);return false;">Share</a>
           </div>
         </div>
         <span class="suite-badge ${badgeClass}">${escapeHtml(s.status)}</span>
@@ -558,6 +559,22 @@ function addShareButton() {
     }
   });
   details.appendChild(btn);
+}
+
+/* ── Suite share ── */
+function shareSuite(buildingName, suiteNumber, el) {
+  const url = window.location.href;
+  const text = `${suiteNumber} at ${buildingName} — Ogden & Company`;
+  if (navigator.share) {
+    navigator.share({ title: text, text: text, url: url }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(`${text}\n${url}`).then(() => {
+      if (el) {
+        el.textContent = "Copied!";
+        setTimeout(() => { el.textContent = "Share"; }, 2000);
+      }
+    });
+  }
 }
 
 /* ── Back to top ── */
