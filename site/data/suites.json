@@ -992,7 +992,7 @@
     "rate_unit": "/SF/yr",
     "status": "Available",
     "available_date": "Now",
-    "brochure_filename": "https://drive.google.com/file/d/1YPNAL6T8iZw6lw0VDRbdba0XnFWhCdXQ/view?usp=sharing",
+    "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
     "floor_plan_filename": "https://drive.google.com/file/d/1ZXePqVLa7lJR1ECgH9lrI4k6j71_G66E/view?usp=sharing"
   },
   {
@@ -1004,7 +1004,8 @@
     "lease_rate": "16",
     "lease_type": "MG",
     "rate_unit": "/SF/yr",
-    "status": "Leased"
+    "status": "Leased",
+    "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing"
   },
   {
     "suite_id": "STN-303",
@@ -1015,7 +1016,8 @@
     "lease_rate": "16",
     "lease_type": "MG",
     "rate_unit": "/SF/yr",
-    "status": "Leased"
+    "status": "Leased",
+    "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing"
   },
   {
     "suite_id": "STN-301",
@@ -1026,7 +1028,8 @@
     "lease_rate": "16",
     "lease_type": "MG",
     "rate_unit": "/SF/yr",
-    "status": "Leased"
+    "status": "Leased",
+    "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing"
   },
   {
     "suite_id": "STN-310",
@@ -1037,7 +1040,8 @@
     "lease_rate": "16",
     "lease_type": "MG",
     "rate_unit": "/SF/yr",
-    "status": "Leased"
+    "status": "Leased",
+    "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing"
   },
   {
     "suite_id": "STN-314",
@@ -1048,7 +1052,8 @@
     "lease_rate": "16",
     "lease_type": "MG",
     "rate_unit": "/SF/yr",
-    "status": "Leased"
+    "status": "Leased",
+    "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing"
   },
   {
     "suite_id": "STN-400",
@@ -1061,7 +1066,7 @@
     "rate_unit": "/SF/yr",
     "status": "Available",
     "available_date": "Now",
-    "brochure_filename": "https://drive.google.com/file/d/1YPNAL6T8iZw6lw0VDRbdba0XnFWhCdXQ/view?usp=sharing",
+    "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
     "floor_plan_filename": "https://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/view?usp=sharing"
   },
   {
@@ -1075,7 +1080,7 @@
     "rate_unit": "/SF/yr",
     "status": "Available",
     "available_date": "Now",
-    "brochure_filename": "https://drive.google.com/file/d/1YPNAL6T8iZw6lw0VDRbdba0XnFWhCdXQ/view?usp=sharing",
+    "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
     "floor_plan_filename": "https://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/viewhttps://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/view"
   },
   {
@@ -1089,7 +1094,7 @@
     "rate_unit": "/SF/yr",
     "status": "Available",
     "available_date": "Now",
-    "brochure_filename": "https://drive.google.com/file/d/1YPNAL6T8iZw6lw0VDRbdba0XnFWhCdXQ/view?usp=sharing",
+    "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
     "floor_plan_filename": "https://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/viewhttps://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/view"
   },
   {
@@ -1103,7 +1108,7 @@
     "rate_unit": "/SF/yr",
     "status": "Available",
     "available_date": "Now",
-    "brochure_filename": "https://drive.google.com/file/d/1YPNAL6T8iZw6lw0VDRbdba0XnFWhCdXQ/view?usp=sharing",
+    "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
     "floor_plan_filename": "https://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/view"
   },
   {
@@ -1117,7 +1122,7 @@
     "rate_unit": "/SF/yr",
     "status": "Available",
     "available_date": "Now",
-    "brochure_filename": "https://drive.google.com/file/d/1YPNAL6T8iZw6lw0VDRbdba0XnFWhCdXQ/view?usp=sharing",
+    "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
     "floor_plan_filename": "https://drive.google.com/file/d/18lOY3q4qn9AVEpi0WmXOAXJuWd3i159V/view?usp=sharing"
   },
   {
@@ -1131,7 +1136,7 @@
     "rate_unit": "/SF/yr",
     "status": "Available",
     "available_date": "Now",
-    "brochure_filename": "https://drive.google.com/file/d/1YPNAL6T8iZw6lw0VDRbdba0XnFWhCdXQ/view?usp=sharing",
+    "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
     "floor_plan_filename": "https://drive.google.com/file/d/18lOY3q4qn9AVEpi0WmXOAXJuWd3i159V/view?usp=sharing"
   },
   {
@@ -1145,7 +1150,7 @@
     "rate_unit": "/SF/yr",
     "status": "Available",
     "available_date": "Now",
-    "brochure_filename": "https://drive.google.com/file/d/1YPNAL6T8iZw6lw0VDRbdba0XnFWhCdXQ/view?usp=sharing",
+    "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
     "floor_plan_filename": "https://drive.google.com/file/d/18lOY3q4qn9AVEpi0WmXOAXJuWd3i159V/view?usp=sharing"
   },
   {
@@ -1159,7 +1164,7 @@
     "rate_unit": "/SF/yr",
     "status": "Available",
     "available_date": "Now",
-    "brochure_filename": "https://drive.google.com/file/d/1YPNAL6T8iZw6lw0VDRbdba0XnFWhCdXQ/view?usp=sharing",
+    "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
     "floor_plan_filename": "https://drive.google.com/file/d/18lOY3q4qn9AVEpi0WmXOAXJuWd3i159V/view?usp=sharing"
   },
   {
