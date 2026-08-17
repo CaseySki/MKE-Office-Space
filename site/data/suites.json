@@ -993,7 +993,8 @@
     "status": "Available",
     "available_date": "Now",
     "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
-    "floor_plan_filename": "https://drive.google.com/file/d/1ZXePqVLa7lJR1ECgH9lrI4k6j71_G66E/view?usp=sharing"
+    "floor_plan_filename": "https://drive.google.com/file/d/1ZXePqVLa7lJR1ECgH9lrI4k6j71_G66E/view?usp=sharing",
+    "notes": "Views of Deer District"
   },
   {
     "suite_id": "STN-308",
@@ -1058,7 +1059,7 @@
   {
     "suite_id": "STN-400",
     "building_id": "STN",
-    "suite_number": "Suite 400",
+    "suite_number": "Suite 400 ~ TURN-KEY",
     "floor": "4",
     "square_feet": "4446",
     "lease_rate": "16",
@@ -1067,7 +1068,8 @@
     "status": "Available",
     "available_date": "Now",
     "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
-    "floor_plan_filename": "https://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/view?usp=sharing"
+    "floor_plan_filename": "https://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/view?usp=sharing",
+    "notes": "Views of the Milwaukee River"
   },
   {
     "suite_id": "STN-401",
@@ -1081,12 +1083,13 @@
     "status": "Available",
     "available_date": "Now",
     "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
-    "floor_plan_filename": "https://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/viewhttps://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/view"
+    "floor_plan_filename": "https://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/viewhttps://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/view",
+    "notes": "Views of Deer District"
   },
   {
     "suite_id": "STN-402",
     "building_id": "STN",
-    "suite_number": "Suite 402",
+    "suite_number": "Suite 402 ~ TURN-KEY",
     "floor": "4",
     "square_feet": "4530",
     "lease_rate": "16",
@@ -1095,7 +1098,8 @@
     "status": "Available",
     "available_date": "Now",
     "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
-    "floor_plan_filename": "https://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/viewhttps://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/view"
+    "floor_plan_filename": "https://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/viewhttps://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/view",
+    "notes": "Views of Deer District"
   },
   {
     "suite_id": "STN-403",
@@ -1109,7 +1113,8 @@
     "status": "Available",
     "available_date": "Now",
     "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
-    "floor_plan_filename": "https://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/view"
+    "floor_plan_filename": "https://drive.google.com/file/d/1FeN-V3gQQwlaDPuhECqDWDIy8EMV4zHF/view",
+    "notes": "Views of Deer District"
   },
   {
     "suite_id": "STN-500",
@@ -1123,12 +1128,13 @@
     "status": "Available",
     "available_date": "Now",
     "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
-    "floor_plan_filename": "https://drive.google.com/file/d/18lOY3q4qn9AVEpi0WmXOAXJuWd3i159V/view?usp=sharing"
+    "floor_plan_filename": "https://drive.google.com/file/d/18lOY3q4qn9AVEpi0WmXOAXJuWd3i159V/view?usp=sharing",
+    "notes": "Views of Deer District & Milwaukee River"
   },
   {
     "suite_id": "STN-502",
     "building_id": "STN",
-    "suite_number": "Suite 502",
+    "suite_number": "Suite 502 ~ TURN-KEY",
     "floor": "5",
     "square_feet": "1388",
     "lease_rate": "16",
@@ -1137,7 +1143,8 @@
     "status": "Available",
     "available_date": "Now",
     "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
-    "floor_plan_filename": "https://drive.google.com/file/d/18lOY3q4qn9AVEpi0WmXOAXJuWd3i159V/view?usp=sharing"
+    "floor_plan_filename": "https://drive.google.com/file/d/18lOY3q4qn9AVEpi0WmXOAXJuWd3i159V/view?usp=sharing",
+    "notes": "Views of the Milwaukee River"
   },
   {
     "suite_id": "STN-504",
@@ -1151,12 +1158,13 @@
     "status": "Available",
     "available_date": "Now",
     "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
-    "floor_plan_filename": "https://drive.google.com/file/d/18lOY3q4qn9AVEpi0WmXOAXJuWd3i159V/view?usp=sharing"
+    "floor_plan_filename": "https://drive.google.com/file/d/18lOY3q4qn9AVEpi0WmXOAXJuWd3i159V/view?usp=sharing",
+    "notes": "Views of the Milwaukee River"
   },
   {
     "suite_id": "STN-509",
     "building_id": "STN",
-    "suite_number": "Suite 509",
+    "suite_number": "Suite 509 ~ TURN-KEY",
     "floor": "5",
     "square_feet": "3392",
     "lease_rate": "16",
@@ -1165,7 +1173,8 @@
     "status": "Available",
     "available_date": "Now",
     "brochure_filename": "https://drive.google.com/file/d/1Ti3CnwYPTH1Ytw6sUMciLGatPw8fRzOS/view?usp=sharing",
-    "floor_plan_filename": "https://drive.google.com/file/d/18lOY3q4qn9AVEpi0WmXOAXJuWd3i159V/view?usp=sharing"
+    "floor_plan_filename": "https://drive.google.com/file/d/18lOY3q4qn9AVEpi0WmXOAXJuWd3i159V/view?usp=sharing",
+    "notes": "Views of Deer District"
   },
   {
     "suite_id": "VVC-1",
